@@ -1,6 +1,6 @@
 /* Offline support for Электролаб 8: the page is served from the cache first
    and refreshed in the background, so it opens without internet after the first visit. */
-const CACHE='elektrolab-v1';
+const CACHE='elektrolab-v2';
 const FILES=['./','./index.html','./manifest.webmanifest','./icons/lab-180.png','./icons/lab-192.png','./icons/lab-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
